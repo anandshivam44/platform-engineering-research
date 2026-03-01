@@ -8,7 +8,7 @@ spec:
   source:
     repoURL: https://github.com/anandshivam44/platform-engineering-research.git
     targetRevision: main
-    path: clusters/dev/kind-shivam-playgroung-1/argocd-apps
+    path: clusters/kind-shivam-playgroung-1/argocd-apps
   destination:
     server: https://kubernetes.default.svc
     namespace: argocd
