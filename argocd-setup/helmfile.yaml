@@ -7,5 +7,6 @@ releases:
     namespace: argocd
     createNamespace: true
     chart: argo/argo-cd
+    version: "9.4.5" #helm chart version
     values:
       - values/argocd.yaml
