@@ -3,6 +3,10 @@ kind: Application
 metadata:
   name: kind-shivam-playground-2.nginx
   namespace: argocd
+  annotations:
+    argocd.argoproj.io/refresh-interval: "360s"
+  finalizers:
+    - resources-finalizer.argocd.argoproj.io
 spec:
   project: default
   sources:
@@ -14,13 +18,26 @@ spec:
       targetRevision: "22.5.3"
       helm:
         valueFiles:
-          - $values/clusters/kind-shivam-playground-2/nginx/values.yaml
+          - $values/clusters/kind-shivam-playground-2/app-of-apps/nginx/values.yaml
   destination:
     server: https://kubernetes.default.svc
     namespace: nginx
   syncPolicy:
     automated:
+      enabled: true
       prune: true
-      selfHeal: true
+      selfHeal: false
     syncOptions:
       - CreateNamespace=true
+      - ApplyOutOfSyncOnly=true
+    retry:
+      limit: 5
+      backoff:
+        duration: 5s
+        factor: 2
+        maxDuration: 3m
+    managedNamespaceMetadata:
+      labels:
+        owner: argocd
+      annotations:
+        team: sre

@@ -3,11 +3,15 @@ kind: Application
 metadata:
   name: kind-shivam-playgroung-1.product-1
   namespace: argocd
+  annotations:
+    argocd.argoproj.io/refresh-interval: "360s"
+  finalizers:
+    - resources-finalizer.argocd.argoproj.io
   labels:
     env: dev
     app: product-1
 spec:
-  project: default
+  project: product-1
   sources:
     - repoURL: https://github.com/anandshivam44/platform-engineering-research.git
       targetRevision: main
@@ -23,7 +27,20 @@ spec:
     namespace: product-1
   syncPolicy:
     automated:
+      enabled: true
       prune: true
-      selfHeal: true
+      selfHeal: false
     syncOptions:
       - CreateNamespace=true
+      - ApplyOutOfSyncOnly=true
+    retry:
+      limit: 5
+      backoff:
+        duration: 5s
+        factor: 2
+        maxDuration: 3m
+    managedNamespaceMetadata:
+      labels:
+        owner: argocd
+      annotations:
+        team: sre

@@ -1,7 +1,7 @@
 apiVersion: argoproj.io/v1alpha1
 kind: Application
 metadata:
-  name: kind-shivam-playgroung-1.product-2
+  name: kind-shivam-playground-2.product-2
   namespace: argocd
   annotations:
     argocd.argoproj.io/refresh-interval: "360s"
@@ -11,11 +11,11 @@ metadata:
     env: dev
     app: product-2
 spec:
-  project: product-2
+  project: default
   source:
     repoURL: https://github.com/anandshivam44/platform-engineering-research.git
     targetRevision: main
-    path: clusters/kind-shivam-playgroung-1/app-of-apps/product-2/kustomize
+    path: clusters/kind-shivam-playground-2/app-of-apps/product-2/kustomize
   destination:
     server: https://kubernetes.default.svc
     namespace: product-2

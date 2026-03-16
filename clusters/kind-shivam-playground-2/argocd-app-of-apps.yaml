@@ -3,19 +3,41 @@ kind: Application
 metadata:
   name: playground-2.app-of-apps
   namespace: argocd
+  annotations:
+    argocd.argoproj.io/refresh-interval: "360s"
+  finalizers:
+    - resources-finalizer.argocd.argoproj.io
 spec:
   project: default
-  source:
-    repoURL: https://github.com/anandshivam44/platform-engineering-research.git
-    targetRevision: main
-    path: clusters/kind-shivam-playground-2
-    directory:
-      recurse: true
-      include: "**/argocd-application.yaml"
+  sources:
+    - repoURL: https://github.com/anandshivam44/platform-engineering-research.git
+      targetRevision: main
+      path: clusters/kind-shivam-playground-2/app-of-apps/nginx
+    - repoURL: https://github.com/anandshivam44/platform-engineering-research.git
+      targetRevision: main
+      path: clusters/kind-shivam-playground-2/app-of-apps/product-1
+    - repoURL: https://github.com/anandshivam44/platform-engineering-research.git
+      targetRevision: main
+      path: clusters/kind-shivam-playground-2/app-of-apps/product-2
   destination:
     server: https://kubernetes.default.svc
     namespace: argocd
   syncPolicy:
     automated:
+      enabled: true
       prune: true
-      selfHeal: true
+      selfHeal: false
+    syncOptions:
+      - CreateNamespace=true
+      - ApplyOutOfSyncOnly=true
+    retry:
+      limit: 5
+      backoff:
+        duration: 5s
+        factor: 2
+        maxDuration: 3m
+    managedNamespaceMetadata:
+      labels:
+        owner: argocd
+      annotations:
+        team: sre

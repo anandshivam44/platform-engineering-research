@@ -3,8 +3,12 @@ kind: Application
 metadata:
   name: kind-shivam-playgroung-1.nginx
   namespace: argocd
+  annotations:
+    argocd.argoproj.io/refresh-interval: "360s"
+  finalizers:
+    - resources-finalizer.argocd.argoproj.io
 spec:
-  project: default
+  project: nginx
   sources:
     - repoURL: https://github.com/anandshivam44/platform-engineering-research.git
       targetRevision: main
@@ -20,7 +24,20 @@ spec:
     namespace: nginx
   syncPolicy:
     automated:
+      enabled: true
       prune: true
-      selfHeal: true
+      selfHeal: false
     syncOptions:
       - CreateNamespace=true
+      - ApplyOutOfSyncOnly=true
+    retry:
+      limit: 5
+      backoff:
+        duration: 5s
+        factor: 2
+        maxDuration: 3m
+    managedNamespaceMetadata:
+      labels:
+        owner: argocd
+      annotations:
+        team: sre
