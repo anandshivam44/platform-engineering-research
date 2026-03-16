@@ -1,7 +1,7 @@
 apiVersion: argoproj.io/v1alpha1
 kind: Application
 metadata:
-  name: playground-1-app-of-apps
+  name: playground-1.app-of-apps
   namespace: argocd
 spec:
   project: default
