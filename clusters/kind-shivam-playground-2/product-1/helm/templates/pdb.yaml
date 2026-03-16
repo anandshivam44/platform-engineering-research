@@ -2,13 +2,13 @@
 apiVersion: policy/v1
 kind: PodDisruptionBudget
 metadata:
-  name: {{ include "the-boss-app.fullname" . }}-pdb
+  name: {{ include "product-1.fullname" . }}-pdb
   namespace: {{ .Release.Namespace }}
   labels:
-    {{- include "the-boss-app.labels" . | nindent 4 }}
+    {{- include "product-1.labels" . | nindent 4 }}
 spec:
   minAvailable: {{ .Values.pdb.minAvailable }}
   selector:
     matchLabels:
-      {{- include "the-boss-app.selectorLabels" . | nindent 6 }}
+      {{- include "product-1.selectorLabels" . | nindent 6 }}
 {{- end }}

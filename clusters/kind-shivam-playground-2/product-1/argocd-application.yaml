@@ -1,11 +1,11 @@
 apiVersion: argoproj.io/v1alpha1
 kind: Application
 metadata:
-  name: kind-shivam-playgroung-1.the-boss-app
+  name: kind-shivam-playground-2.product-1
   namespace: argocd
   labels:
     env: dev
-    app: the-boss-app
+    app: product-1
 spec:
   project: default
   sources:
@@ -14,13 +14,13 @@ spec:
       ref: values
     - repoURL: https://github.com/anandshivam44/platform-engineering-research.git
       targetRevision: main
-      path: clusters/kind-shivam-playgroung-1/the-boss-app/helm
+      path: clusters/kind-shivam-playground-2/product-1/helm
       helm:
         valueFiles:
-          - $values/clusters/kind-shivam-playgroung-1/the-boss-app/values.yaml
+          - $values/clusters/kind-shivam-playground-2/product-1/overrides.yaml
   destination:
     server: https://kubernetes.default.svc
-    namespace: the-boss-app
+    namespace: product-1
   syncPolicy:
     automated:
       prune: true

@@ -1,6 +1,6 @@
 apiVersion: v2
-name: the-boss-app
-description: Helm chart for the-boss-app
+name: product-1
+description: Helm chart for product-1
 type: application
 version: 0.1.0
 appVersion: "1.0.0"

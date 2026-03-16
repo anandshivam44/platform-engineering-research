@@ -1,2 +1,0 @@
-# Prod cluster overrides for nginx
-replicaCount: 1

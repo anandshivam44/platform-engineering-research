@@ -15,9 +15,8 @@ spec:
       helm:
         valueFiles:
           - $values/clusters/kind-shivam-playground-2/nginx/values.yaml
-          - $values/clusters/kind-shivam-playground-2/nginx/overrides.yaml
   destination:
-    server: https://172.18.0.3:6443
+    server: https://kubernetes.default.svc
     namespace: nginx
   syncPolicy:
     automated:

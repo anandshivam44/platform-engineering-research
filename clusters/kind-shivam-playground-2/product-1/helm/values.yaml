@@ -1,7 +1,7 @@
 replicaCount: 1
 
 nameOverride: ""
-fullnameOverride: "the-boss-app"
+fullnameOverride: "product-1"
 
 image:
   repository: nginx

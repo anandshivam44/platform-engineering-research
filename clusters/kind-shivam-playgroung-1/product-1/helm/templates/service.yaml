@@ -1,10 +1,10 @@
 apiVersion: v1
 kind: Service
 metadata:
-  name: {{ include "the-boss-app.fullname" . }}
+  name: {{ include "product-1.fullname" . }}
   namespace: {{ .Release.Namespace }}
   labels:
-    {{- include "the-boss-app.labels" . | nindent 4 }}
+    {{- include "product-1.labels" . | nindent 4 }}
 spec:
   type: {{ .Values.service.type }}
   ports:
@@ -13,4 +13,4 @@ spec:
       protocol: TCP
       name: http
   selector:
-    {{- include "the-boss-app.selectorLabels" . | nindent 4 }}
+    {{- include "product-1.selectorLabels" . | nindent 4 }}

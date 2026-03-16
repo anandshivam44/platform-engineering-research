@@ -1,14 +1,14 @@
 {{/*
 Expand the name of the chart.
 */}}
-{{- define "the-boss-app.name" -}}
+{{- define "product-1.name" -}}
 {{- default .Chart.Name .Values.nameOverride | trunc 63 | trimSuffix "-" }}
 {{- end }}
 
 {{/*
 Create a default fully qualified app name.
 */}}
-{{- define "the-boss-app.fullname" -}}
+{{- define "product-1.fullname" -}}
 {{- if .Values.fullnameOverride }}
 {{- .Values.fullnameOverride | trunc 63 | trimSuffix "-" }}
 {{- else }}
@@ -24,16 +24,16 @@ Create a default fully qualified app name.
 {{/*
 Common labels
 */}}
-{{- define "the-boss-app.labels" -}}
+{{- define "product-1.labels" -}}
 helm.sh/chart: {{ printf "%s-%s" .Chart.Name .Chart.Version | replace "+" "_" | trunc 63 | trimSuffix "-" }}
-{{ include "the-boss-app.selectorLabels" . }}
+{{ include "product-1.selectorLabels" . }}
 app.kubernetes.io/managed-by: {{ .Release.Service }}
 {{- end }}
 
 {{/*
 Selector labels
 */}}
-{{- define "the-boss-app.selectorLabels" -}}
-app.kubernetes.io/name: {{ include "the-boss-app.name" . }}
+{{- define "product-1.selectorLabels" -}}
+app.kubernetes.io/name: {{ include "product-1.name" . }}
 app.kubernetes.io/instance: {{ .Release.Name }}
 {{- end }}

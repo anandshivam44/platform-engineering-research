@@ -19,7 +19,7 @@ readinessProbe:
   initialDelaySeconds: 5
   periodSeconds: 5
 
-replicaCount: 1
+replicaCount: 2
 
 pdb:
   create: true

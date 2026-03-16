@@ -1,19 +1,19 @@
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: {{ include "the-boss-app.fullname" . }}
+  name: {{ include "product-1.fullname" . }}
   namespace: {{ .Release.Namespace }}
   labels:
-    {{- include "the-boss-app.labels" . | nindent 4 }}
+    {{- include "product-1.labels" . | nindent 4 }}
 spec:
   replicas: {{ .Values.replicaCount }}
   selector:
     matchLabels:
-      {{- include "the-boss-app.selectorLabels" . | nindent 6 }}
+      {{- include "product-1.selectorLabels" . | nindent 6 }}
   template:
     metadata:
       labels:
-        {{- include "the-boss-app.selectorLabels" . | nindent 8 }}
+        {{- include "product-1.selectorLabels" . | nindent 8 }}
     spec:
       containers:
         - name: {{ .Chart.Name }}
@@ -50,5 +50,5 @@ spec:
       volumes:
         - name: data
           persistentVolumeClaim:
-            claimName: {{ include "the-boss-app.fullname" . }}-pvc
+            claimName: {{ include "product-1.fullname" . }}-pvc
       {{- end }}
