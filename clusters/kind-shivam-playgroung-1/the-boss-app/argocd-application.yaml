@@ -17,7 +17,7 @@ spec:
       path: clusters/kind-shivam-playgroung-1/the-boss-app/helm
       helm:
         valueFiles:
-          - $values/clusters/kind-shivam-playgroung-1/the-boss-app/overrides.yaml
+          - $values/clusters/kind-shivam-playgroung-1/the-boss-app/values.yaml
   destination:
     server: https://kubernetes.default.svc
     namespace: the-boss-app
