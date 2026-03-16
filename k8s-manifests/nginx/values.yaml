@@ -1,4 +1,3 @@
-# Shared nginx defaults — overridden per cluster in clusters/<env>/values/nginx.yaml
 service:
   type: ClusterIP
 

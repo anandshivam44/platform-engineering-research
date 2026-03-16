@@ -1,12 +1,12 @@
 replicaCount: 1
 
+nameOverride: ""
+fullnameOverride: "the-boss-app"
+
 image:
   repository: nginx
   tag: "alpine"
   pullPolicy: IfNotPresent
-
-nameOverride: ""
-fullnameOverride: ""
 
 service:
   type: ClusterIP

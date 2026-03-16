@@ -14,7 +14,7 @@ spec:
       targetRevision: "22.5.3"
       helm:
         valueFiles:
-          - $values/base/nginx-values.yaml
+          - $values/k8s-manifests/nginx/values.yaml
           - $values/k8s-manifests/nginx/helm-overrides/kind-shivam-playgroung-1.yaml
   destination:
     server: https://kubernetes.default.svc

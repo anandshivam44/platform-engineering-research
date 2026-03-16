@@ -17,7 +17,6 @@ spec:
       path: k8s-manifests/the-boss-app/helm
       helm:
         valueFiles:
-          - $values/base/the-boss-app-values.yaml
           - $values/k8s-manifests/the-boss-app/helm-overrides/kind-shivam-playgroung-1.yaml
   destination:
     server: https://kubernetes.default.svc

@@ -17,7 +17,6 @@ spec:
       path: k8s-manifests/the-boss-app/helm
       helm:
         valueFiles:
-          - $values/base/the-boss-app-values.yaml
           - $values/k8s-manifests/the-boss-app/helm-overrides/kind-shivam-playground-2.yaml
   destination:
     server: https://172.18.0.3:6443
