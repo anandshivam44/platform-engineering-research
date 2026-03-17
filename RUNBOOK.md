@@ -29,7 +29,7 @@ kubectl get nodes --context kind-shivam-playground-2
 ## 2. Deploy ArgoCD on the management cluster (dev)
 
 ```bash
-cd argocd-setup
+cd setup-argocd
 helmfile sync --kube-context kind-shivam-playgroung-1
 kubectl get pods -n argocd --context kind-shivam-playgroung-1
 ```
@@ -125,7 +125,7 @@ argocd app delete playground-1-app-of-apps --cascade -y
 
 kubectl --context kind-shivam-playgroung-1 -n argocd delete secret cluster-kind-shivam-playground-2
 
-cd argocd-setup && helmfile destroy --kube-context kind-shivam-playgroung-1
+cd setup-argocd && helmfile destroy --kube-context kind-shivam-playgroung-1
 
 kind delete cluster --name shivam-playground-2
 kind delete cluster --name shivam-playgroung-1

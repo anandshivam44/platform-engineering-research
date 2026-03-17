@@ -1,0 +1,131 @@
+---
+# cluster-infra: owns cluster-level resources (ClusterRoles, StorageClass, ArgoCD Applications/AppProjects)
+apiVersion: argoproj.io/v1alpha1
+kind: AppProject
+metadata:
+  name: cluster-infra
+  namespace: argocd
+spec:
+  description: Project for cluster-level infrastructure resources managed by the platform team
+  sourceRepos:
+    - https://github.com/anandshivam44/platform-engineering-research.git
+  destinations:
+    - namespace: argocd
+      server: https://kubernetes.default.svc
+    - namespace: "*"
+      server: https://kubernetes.default.svc
+  clusterResourceWhitelist:
+    - group: rbac.authorization.k8s.io
+      kind: ClusterRole
+    - group: rbac.authorization.k8s.io
+      kind: ClusterRoleBinding
+    - group: storage.k8s.io
+      kind: StorageClass
+  namespaceResourceWhitelist:
+    - group: argoproj.io
+      kind: Application
+    - group: argoproj.io
+      kind: AppProject
+    - group: ""
+      kind: ConfigMap
+    - group: ""
+      kind: ServiceAccount
+---
+# nginx: owns the nginx ingress controller application
+apiVersion: argoproj.io/v1alpha1
+kind: AppProject
+metadata:
+  name: nginx
+  namespace: argocd
+spec:
+  description: Project for the nginx ingress controller
+  sourceRepos:
+    - https://github.com/anandshivam44/platform-engineering-research.git
+    - https://charts.bitnami.com/bitnami
+  destinations:
+    - namespace: nginx
+      server: https://kubernetes.default.svc
+  clusterResourceWhitelist: []
+  namespaceResourceWhitelist:
+    - group: apps
+      kind: Deployment
+    - group: ""
+      kind: Service
+    - group: ""
+      kind: ConfigMap
+    - group: ""
+      kind: ServiceAccount
+    - group: policy
+      kind: PodDisruptionBudget
+    - group: networking.k8s.io
+      kind: Ingress
+---
+# product-1: owned by team-a
+apiVersion: argoproj.io/v1alpha1
+kind: AppProject
+metadata:
+  name: product-1
+  namespace: argocd
+spec:
+  description: Project for product-1 — owned by team-a
+  sourceRepos:
+    - https://github.com/anandshivam44/platform-engineering-research.git
+  destinations:
+    - namespace: product-1
+      server: https://kubernetes.default.svc
+  clusterResourceWhitelist: []
+  namespaceResourceWhitelist:
+    - group: apps
+      kind: Deployment
+    - group: ""
+      kind: Service
+    - group: ""
+      kind: PersistentVolumeClaim
+    - group: ""
+      kind: ServiceAccount
+    - group: policy
+      kind: PodDisruptionBudget
+  roles:
+    - name: team-a-engineer
+      description: team-a engineers — sync and view product-1
+      policies:
+        - p, proj:product-1:team-a-engineer, applications, get,      product-1/*, allow
+        - p, proj:product-1:team-a-engineer, applications, sync,     product-1/*, allow
+        - p, proj:product-1:team-a-engineer, applications, override, product-1/*, allow
+      groups:
+        - team-a
+---
+# product-2: owned by team-b
+apiVersion: argoproj.io/v1alpha1
+kind: AppProject
+metadata:
+  name: product-2
+  namespace: argocd
+spec:
+  description: Project for product-2 — owned by team-b
+  sourceRepos:
+    - https://github.com/anandshivam44/platform-engineering-research.git
+  destinations:
+    - namespace: product-2
+      server: https://kubernetes.default.svc
+  clusterResourceWhitelist: []
+  namespaceResourceWhitelist:
+    - group: apps
+      kind: Deployment
+    - group: ""
+      kind: Service
+    - group: ""
+      kind: PersistentVolumeClaim
+    - group: ""
+      kind: ServiceAccount
+    - group: policy
+      kind: PodDisruptionBudget
+  roles:
+    - name: team-b-engineer
+      description: team-b engineers — sync and view product-2
+      policies:
+        - p, proj:product-2:team-b-engineer, applications, get,      product-2/*, allow
+        - p, proj:product-2:team-b-engineer, applications, sync,     product-2/*, allow
+        - p, proj:product-2:team-b-engineer, applications, override, product-2/*, allow
+      groups:
+        - team-b

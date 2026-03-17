@@ -11,7 +11,7 @@ metadata:
     env: dev
     app: product-1
 spec:
-  project: default
+  project: product-1
   sources:
     - repoURL: https://github.com/anandshivam44/platform-engineering-research.git
       targetRevision: main

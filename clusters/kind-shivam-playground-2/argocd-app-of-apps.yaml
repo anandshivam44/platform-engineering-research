@@ -13,15 +13,23 @@ spec:
     - repoURL: https://github.com/anandshivam44/platform-engineering-research.git
       targetRevision: main
       path: clusters/kind-shivam-playground-2/app-of-apps/cluster-resources
+      directory:
+        exclude: "*-secret.yaml"
     - repoURL: https://github.com/anandshivam44/platform-engineering-research.git
       targetRevision: main
       path: clusters/kind-shivam-playground-2/app-of-apps/nginx
+      directory:
+        exclude: "*-secret.yaml"
     - repoURL: https://github.com/anandshivam44/platform-engineering-research.git
       targetRevision: main
       path: clusters/kind-shivam-playground-2/app-of-apps/product-1
+      directory:
+        exclude: "*-secret.yaml"
     - repoURL: https://github.com/anandshivam44/platform-engineering-research.git
       targetRevision: main
       path: clusters/kind-shivam-playground-2/app-of-apps/product-2
+      directory:
+        exclude: "*-secret.yaml"
   destination:
     server: https://kubernetes.default.svc
     namespace: argocd
