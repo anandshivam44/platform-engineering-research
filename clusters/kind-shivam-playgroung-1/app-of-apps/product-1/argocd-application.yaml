@@ -18,7 +18,7 @@ spec:
       ref: values
     - repoURL: https://github.com/anandshivam44/platform-engineering-research.git
       targetRevision: main
-      path: clusters/kind-shivam-playgroung-1/app-of-apps/product-1/helm
+      path: manifests/product-1/helm
       helm:
         valueFiles:
           - $values/clusters/kind-shivam-playgroung-1/app-of-apps/product-1/values.yaml

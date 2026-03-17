@@ -12,6 +12,9 @@ spec:
   sources:
     - repoURL: https://github.com/anandshivam44/platform-engineering-research.git
       targetRevision: main
+      path: clusters/kind-shivam-playground-2/app-of-apps/cluster-resources
+    - repoURL: https://github.com/anandshivam44/platform-engineering-research.git
+      targetRevision: main
       path: clusters/kind-shivam-playground-2/app-of-apps/nginx
     - repoURL: https://github.com/anandshivam44/platform-engineering-research.git
       targetRevision: main

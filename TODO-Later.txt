@@ -1,1 +1,9 @@
 make app of apps also gitops managed.
+
+
+When You SHOULD NOT Use ApplyOutOfSyncOnly=true - 
+Avoid if you rely on:
+Jobs triggered on every sync
+Helm hook executions
+Reconciliation via reapply
+Controllers modifying specs frequently

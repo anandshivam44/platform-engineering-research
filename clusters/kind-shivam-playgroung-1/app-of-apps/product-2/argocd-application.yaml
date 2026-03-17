@@ -15,7 +15,7 @@ spec:
   source:
     repoURL: https://github.com/anandshivam44/platform-engineering-research.git
     targetRevision: main
-    path: clusters/kind-shivam-playgroung-1/app-of-apps/product-2/kustomize
+    path: manifests/product-2/kustomize
   destination:
     server: https://kubernetes.default.svc
     namespace: product-2

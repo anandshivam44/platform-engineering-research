@@ -4,8 +4,12 @@ kind: PersistentVolumeClaim
 metadata:
   name: {{ include "product-1.fullname" . }}-pvc
   namespace: {{ .Release.Namespace }}
+  annotations:
+    argocd.argoproj.io/sync-options: "Prune=false"
+    helm.sh/resource-policy: keep
   labels:
     {{- include "product-1.labels" . | nindent 4 }}
+    pvc-protection: "true"
 spec:
   accessModes:
     - {{ .Values.pvc.accessMode }}

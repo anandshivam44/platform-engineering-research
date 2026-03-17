@@ -1,3 +1,5 @@
+# Default values for product-1 chart. Cluster-specific overrides stay in
+# clusters/<cluster>/app-of-apps/product-1/values.yaml
 replicaCount: 1
 
 nameOverride: ""
@@ -23,7 +25,7 @@ resources:
 
 pvc:
   enabled: true
-  storageClassName: ""
+  storageClassName: "standard-retain"
   accessMode: ReadWriteOnce
   size: 100Mi
   mountPath: /data

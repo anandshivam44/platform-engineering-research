@@ -3,9 +3,14 @@ kind: PersistentVolumeClaim
 metadata:
   name: product-2-pvc
   namespace: product-2
+  annotations:
+    argocd.argoproj.io/sync-options: "Prune=false"
+    helm.sh/resource-policy: keep
   labels:
     app: product-2
+    pvc-protection: "true"
 spec:
+  storageClassName: standard-retain
   accessModes:
     - ReadWriteOnce
   resources:
