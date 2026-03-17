@@ -83,9 +83,17 @@ Verify all clusters:
 argocd cluster list
 ```
 
-## 5. Bootstrap — apply app-of-apps for each cluster
+## 5. Bootstrap — apply root app-of-apps
 
-All commands run against the management cluster where ArgoCD lives:
+All commands run against the management cluster where ArgoCD lives.
+
+Apply the **root** Argo CD Application; it deploys both cluster app-of-apps (`playground-1.app-of-apps` and `playground-2.app-of-apps`):
+
+```bash
+kubectl apply -f clusters/argocd-root-app.yaml --context kind-shivam-playgroung-1
+```
+
+### (Alternative) Apply each cluster app-of-apps manually
 
 ```bash
 kubectl apply -f clusters/kind-shivam-playgroung-1/argocd-app-of-apps.yaml --context kind-shivam-playgroung-1
@@ -120,8 +128,10 @@ argocd app list
 ## 8. Teardown
 
 ```bash
-argocd app delete playground-2-app-of-apps --cascade -y
-argocd app delete playground-1-app-of-apps --cascade -y
+# Remove root app (manages both app-of-apps), then child apps if needed
+argocd app delete root-app-of-apps --cascade -y
+argocd app delete playground-2.app-of-apps --cascade -y
+argocd app delete playground-1.app-of-apps --cascade -y
 
 kubectl --context kind-shivam-playgroung-1 -n argocd delete secret cluster-kind-shivam-playground-2
 

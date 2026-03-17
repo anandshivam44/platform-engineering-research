@@ -1,0 +1,39 @@
+apiVersion: argoproj.io/v1alpha1
+kind: Application
+metadata:
+  name: argocd-root
+  namespace: argocd
+  annotations:
+    argocd.argoproj.io/refresh-interval: "360s"
+  finalizers:
+    - resources-finalizer.argocd.argoproj.io
+spec:
+  project: default
+  sources:
+    - repoURL: https://github.com/anandshivam44/k8-platform-engineering-research.git
+      targetRevision: main
+      path: clusters/kind-shivam-playgroung-1
+      directory:
+        include: "argocd-app-of-apps.yaml"
+    - repoURL: https://github.com/anandshivam44/k8-platform-engineering-research.git
+      targetRevision: main
+      path: clusters/kind-shivam-playground-2
+      directory:
+        include: "argocd-app-of-apps.yaml"
+  destination:
+    server: https://kubernetes.default.svc
+    namespace: argocd
+  syncPolicy:
+    automated:
+      enabled: true
+      prune: true
+      selfHeal: false
+    syncOptions:
+      - CreateNamespace=true
+      - ApplyOutOfSyncOnly=true
+    retry:
+      limit: 5
+      backoff:
+        duration: 5s
+        factor: 2
+        maxDuration: 3m
