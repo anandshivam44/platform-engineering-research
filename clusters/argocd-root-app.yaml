@@ -1,3 +1,6 @@
+# This is the root application for the ArgoCD cluster. It will deploy the app-of-apps.
+# Deploy this once and manage all the clusters mentioned below.
+# This file needs to be re-applied if a cluster is added or removed.
 apiVersion: argoproj.io/v1alpha1
 kind: Application
 metadata:
@@ -6,7 +9,7 @@ metadata:
   annotations:
     argocd.argoproj.io/refresh-interval: "360s"
   finalizers:
-    - resources-finalizer.argocd.argoproj.io
+    - resources-finalizer.argocd.argoproj.io # Do not use this is a Company setup
 spec:
   project: default
   sources:

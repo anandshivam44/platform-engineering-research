@@ -6,7 +6,7 @@ metadata:
   annotations:
     argocd.argoproj.io/refresh-interval: "360s"
   finalizers:
-    - resources-finalizer.argocd.argoproj.io
+    - resources-finalizer.argocd.argoproj.io # Do not use this is a Company setup
 spec:
   project: nginx
   sources:
