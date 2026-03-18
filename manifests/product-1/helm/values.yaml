@@ -1,5 +1,5 @@
 # Default values for product-1 chart. Cluster-specific overrides stay in
-# clusters/<cluster>/app-of-apps/product-1/values.yaml
+# clusters/<cluster>/argocd-applications/product-1/values.yaml
 replicaCount: 1
 
 nameOverride: ""

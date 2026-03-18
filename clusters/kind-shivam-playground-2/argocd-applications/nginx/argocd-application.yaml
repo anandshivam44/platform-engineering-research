@@ -18,7 +18,7 @@ spec:
       targetRevision: "22.5.3"
       helm:
         valueFiles:
-          - $values/clusters/kind-shivam-playground-2/app-of-apps/nginx/values.yaml
+          - $values/clusters/kind-shivam-playground-2/argocd-applications/nginx/values.yaml
   destination:
     server: https://kubernetes.default.svc
     namespace: nginx

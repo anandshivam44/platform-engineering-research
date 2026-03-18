@@ -21,7 +21,7 @@ spec:
       path: manifests/product-1/helm
       helm:
         valueFiles:
-          - $values/clusters/kind-shivam-playground-2/app-of-apps/product-1/values.yaml
+          - $values/clusters/kind-shivam-playground-2/argocd-applications/product-1/values.yaml
   destination:
     server: https://kubernetes.default.svc
     namespace: product-1

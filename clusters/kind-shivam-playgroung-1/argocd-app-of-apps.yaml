@@ -12,22 +12,22 @@ spec:
   sources:
     - repoURL: https://github.com/anandshivam44/k8-platform-engineering-research.git
       targetRevision: main
-      path: clusters/kind-shivam-playgroung-1/app-of-apps/cluster-resources
+      path: clusters/kind-shivam-playgroung-1/argocd-applications/cluster-resources
       directory:
         exclude: "*-secret.yaml"
     - repoURL: https://github.com/anandshivam44/k8-platform-engineering-research.git
       targetRevision: main
-      path: clusters/kind-shivam-playgroung-1/app-of-apps/nginx
+      path: clusters/kind-shivam-playgroung-1/argocd-applications/nginx
       directory:
         exclude: "*-secret.yaml"
     - repoURL: https://github.com/anandshivam44/k8-platform-engineering-research.git
       targetRevision: main
-      path: clusters/kind-shivam-playgroung-1/app-of-apps/product-1
+      path: clusters/kind-shivam-playgroung-1/argocd-applications/product-1
       directory:
         exclude: "*-secret.yaml"
     - repoURL: https://github.com/anandshivam44/k8-platform-engineering-research.git
       targetRevision: main
-      path: clusters/kind-shivam-playgroung-1/app-of-apps/product-2
+      path: clusters/kind-shivam-playgroung-1/argocd-applications/product-2
       directory:
         exclude: "*-secret.yaml"
   destination:
