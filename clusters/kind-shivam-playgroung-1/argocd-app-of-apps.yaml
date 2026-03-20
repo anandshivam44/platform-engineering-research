@@ -19,17 +19,17 @@ spec:
       targetRevision: main
       path: clusters/kind-shivam-playgroung-1/argocd-applications/nginx
       directory:
-        exclude: "*-secret.yaml"
+        include: "argocd-application.yaml"
     - repoURL: https://github.com/anandshivam44/k8-platform-engineering-research.git
       targetRevision: main
       path: clusters/kind-shivam-playgroung-1/argocd-applications/product-1
       directory:
-        exclude: "*-secret.yaml"
+        include: "argocd-application.yaml"
     - repoURL: https://github.com/anandshivam44/k8-platform-engineering-research.git
       targetRevision: main
       path: clusters/kind-shivam-playgroung-1/argocd-applications/product-2
       directory:
-        exclude: "*-secret.yaml"
+        include: "argocd-application.yaml"
   destination:
     server: https://kubernetes.default.svc
     namespace: argocd
