@@ -4,6 +4,8 @@ ArgoCD via Helmfile. Management cluster: `kind-shivam-playgroung-1` (dev). Remot
 
 See [ARCHITECTURE.md](ARCHITECTURE.md) for the full design.
 
+**Azure CLI (Entra ID app registration, groups, users, Argo CD OIDC):** [playbooks/azure-cli-entra-argocd-e2e.md](playbooks/azure-cli-entra-argocd-e2e.md)
+
 **Prerequisites:** `kind`, `kubectl`, `helm`, `helmfile`, `argocd` CLI
 
 ```bash
@@ -41,6 +43,10 @@ kubectl port-forward svc/argocd-server -n argocd 8080:443 --context kind-shivam-
 ```
 
 Open **https://localhost:8080**. Username: `admin`. Password:
+
+**OIDC (e.g. Azure Entra ID):** Keep `argocd-cm` `data.url` identical to how you open the UI (`https://localhost:8080`). In the app registration, add redirect URI **`https://localhost:8080/auth/callback`**.
+
+If `oidc.config` uses **`$secret-name:clientSecret`**, the secret must include label **`app.kubernetes.io/part-of: argocd`** (otherwise Argo CD logs *key does not exist in secret* and token exchange fails). Example: `kubectl -n argocd label secret argocd-oidc-azure app.kubernetes.io/part-of=argocd`.
 
 ```bash
 kubectl -n argocd --context kind-shivam-playgroung-1 get secret argocd-initial-admin-secret \
