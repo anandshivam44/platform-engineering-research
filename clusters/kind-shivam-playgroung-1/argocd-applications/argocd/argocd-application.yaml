@@ -1,0 +1,40 @@
+apiVersion: argoproj.io/v1alpha1
+kind: Application
+metadata:
+  name: kind-shivam-playgroung-1.argocd
+  namespace: argocd
+  annotations:
+    argocd.argoproj.io/refresh-interval: "360s"
+  finalizers:
+    - resources-finalizer.argocd.argoproj.io # Do not use this is a Company setup
+spec:
+  project: default
+  sources:
+    - repoURL: https://github.com/anandshivam44/k8-platform-engineering-research.git
+      targetRevision: main
+      ref: values
+    - repoURL: https://argoproj.github.io/argo-helm
+      chart: argo-cd
+      targetRevision: "9.4.15"
+      helm:
+        # Must match setup-argocd/helmfile.yaml release name so GitOps adopts the same install.
+        releaseName: argocd
+        valueFiles:
+          - $values/clusters/kind-shivam-playgroung-1/argocd-applications/argocd/values.yaml
+  destination:
+    server: https://kubernetes.default.svc
+    namespace: argocd
+  syncPolicy:
+    automated:
+      enabled: true
+      prune: true
+      selfHeal: false
+    syncOptions:
+      - CreateNamespace=true
+      - ApplyOutOfSyncOnly=true
+    retry:
+      limit: 5
+      backoff:
+        duration: 5s
+        factor: 2
+        maxDuration: 3m

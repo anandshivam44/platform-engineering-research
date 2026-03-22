@@ -12,6 +12,11 @@ spec:
   sources:
     - repoURL: https://github.com/anandshivam44/k8-platform-engineering-research.git
       targetRevision: main
+      path: clusters/kind-shivam-playgroung-1/argocd-applications/argocd
+      directory:
+        include: "argocd-application.yaml"
+    - repoURL: https://github.com/anandshivam44/k8-platform-engineering-research.git
+      targetRevision: main
       path: clusters/kind-shivam-playgroung-1/argocd-applications/cluster-resources
       directory:
         exclude: "*-secret.yaml"

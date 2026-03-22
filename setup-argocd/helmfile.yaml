@@ -7,6 +7,6 @@ releases:
     namespace: argocd
     createNamespace: true
     chart: argo/argo-cd
-    version: "9.4.5" #helm chart version
+    version: "9.4.15" # helm chart version (keep in sync with argocd-application.yaml)
     values:
-      - values/argocd.yaml
+      - ../clusters/kind-shivam-playgroung-1/argocd-applications/argocd/values.yaml

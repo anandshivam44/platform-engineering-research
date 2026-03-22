@@ -1,3 +1,6 @@
+# Shared with setup-argocd/helmfile.yaml (bootstrap) and Argo CD Application (GitOps).
+# Single source of truth for Argo CD Helm values on this cluster.
+
 server:
   service:
     type: ClusterIP
@@ -14,30 +17,22 @@ configs:
     server.insecure: false
 
   cm:
-    # ArgoCD server URL — update to your actual ingress URL when exposing externally
-    url: https://argocd.example.com
-
-    # OIDC SSO — uncomment and fill in when an IdP (GitHub OAuth, Google, Okta, etc.) is available
-    # oidc.config: |
-    #   name: GitHub
-    #   issuer: https://token.actions.githubusercontent.com
-    #   clientID: <github-oauth-app-client-id>
-    #   clientSecret: $oidc.github.clientSecret
-    #   requestedScopes: ["openid", "profile", "email", "read:org"]
-    #   requestedIDTokenClaims:
-    #     groups:
-    #       essential: true
+    # Must match how you open the UI (see RUNBOOK OIDC notes).
+    url: https://localhost:8080
+    oidc.config: |
+      name: Azure
+      issuer: https://login.microsoftonline.com/939f575e-0369-4929-a7b3-9c18af593c11/v2.0
+      clientID: bdf1cc2b-2d99-42a4-92ce-7b950257c64f
+      clientSecret: $argocd-oidc-azure:clientSecret
+      requestedScopes:
+        - openid
+        - profile
+        - email
 
   rbac:
-    # deny-by-default: any authenticated user who is not in a mapped group gets read-only access
     policy.default: role:viewer
-
-    # Scopes to extract from the OIDC token for group membership
     scopes: "[groups, email]"
-
     policy.csv: |
-      # ── Platform admin ───────────────────────────────────────────────────────
-      # Full access to all resources across all projects
       p, role:platform-admin, applications,    *, */*, allow
       p, role:platform-admin, applicationsets, *, */*, allow
       p, role:platform-admin, clusters,        *, *,   allow
@@ -46,32 +41,24 @@ configs:
       p, role:platform-admin, logs,            *, */*, allow
       p, role:platform-admin, exec,            *, */*, allow
 
-      # ── team-a → product-1 ───────────────────────────────────────────────────
       p, role:product-1-engineer, applications, get,      product-1/*, allow
       p, role:product-1-engineer, applications, sync,     product-1/*, allow
       p, role:product-1-engineer, applications, override, product-1/*, allow
       p, role:product-1-engineer, applications, action,   product-1/*, allow
       p, role:product-1-engineer, logs,         get,      product-1/*, allow
 
-      # ── team-b → product-2 ───────────────────────────────────────────────────
       p, role:product-2-engineer, applications, get,      product-2/*, allow
       p, role:product-2-engineer, applications, sync,     product-2/*, allow
       p, role:product-2-engineer, applications, override, product-2/*, allow
       p, role:product-2-engineer, applications, action,   product-2/*, allow
       p, role:product-2-engineer, logs,         get,      product-2/*, allow
 
-      # ── viewer ────────────────────────────────────────────────────────────────
-      # Read-only across all projects (also the policy.default for unknown users)
       p, role:viewer, applications,  get, */*, allow
       p, role:viewer, repositories,  get, *,   allow
 
-      # ── Group → Role bindings ─────────────────────────────────────────────────
-      # SSO group names must match groups returned by the configured OIDC provider
       g, platform-engineers, role:platform-admin
       g, team-a,             role:product-1-engineer
       g, team-b,             role:product-2-engineer
-
-      # Break-glass: local ArgoCD admin account always gets full access
       g, admin, role:platform-admin
 
 controller:
